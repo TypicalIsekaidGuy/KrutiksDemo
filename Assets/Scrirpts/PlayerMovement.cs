@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Animator animator; 
+    [SerializeField] private GameObject[] heroes; 
+    [SerializeField] private Transform mainCamera; 
     private PlayerMove playerInput;
     private CharacterController controller;
     private Vector3 playerVelocity;
@@ -54,14 +56,22 @@ public class PlayerMovement : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+
+        mainCamera.position = new Vector3(transform.position.x,4,transform.position.z-4);
     }
     public void ChangeRig()
     {
-        Transform[] children = transform.GetComponentsInChildren<Transform>();
-        foreach (var child in children) {
-            if (child.gameObject.activeSelf)
-                animator = child.GetComponent<Animator>();
+        foreach (var hero in heroes) {
+            if (hero.activeSelf)
+                animator = hero.GetComponent<Animator>();
         }
 
+    }
+    public void ChangeCharacter(int i)
+    {
+        foreach (var hero in heroes) 
+            hero.SetActive(false);
+        heroes[i].SetActive(true);
+        ChangeRig();
     }
 }
