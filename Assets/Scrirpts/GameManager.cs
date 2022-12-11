@@ -10,6 +10,10 @@ public class GameManager : MonoBehaviour
     public int food;
     public int achivements;
 
+    public void ChangeEnergy()
+    {
+        energy++;
+    } 
     #region Serialization
     /*регион дл€ сохранений*/
     public void SaveData() //метод, который реализует класс, в котором записываютс€ все переменные в этом скрипте, сохран€ютс€ в json и записываютс€ в файл

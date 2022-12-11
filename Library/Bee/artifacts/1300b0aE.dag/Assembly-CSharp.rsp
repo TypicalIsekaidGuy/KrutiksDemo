@@ -360,6 +360,7 @@
 "Assets/Scrirpts/GameManager.cs"
 "Assets/Scrirpts/PlayerManager.cs"
 "Assets/Scrirpts/UIManager.cs"
+"Assets/Scrirpts/Wall.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark02.cs"

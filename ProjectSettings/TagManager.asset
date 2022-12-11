@@ -8,14 +8,15 @@ TagManager:
   - Creepers
   - Rock
   - Wall
+  - Food
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PassThroughPlayer
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 
