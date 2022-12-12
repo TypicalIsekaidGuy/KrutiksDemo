@@ -11,7 +11,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]private Button[] buttons;
     [SerializeField]private Sprite[] pressedButtons;
     [SerializeField]private Sprite[] activeButtons;
-    // Метод, выполняемый при старте игры
+
+    public Button royPunch;
+    public GameObject Joystick;
     void Start()
     {
         // Теперь, проверяем существование экземпляра
@@ -46,5 +48,21 @@ public class UIManager : MonoBehaviour
         foreach (var button in buttons)
             button.interactable = true;
         buttons[i].interactable = false;
+    }
+    public void ActivateButton(Button button)
+    {
+        button.interactable = true;
+    }
+    public void DeactivateButton(Button button)
+    {
+        button.interactable = false;
+    }
+    public void ActivateJoystick()
+    {
+        Joystick.SetActive(true);
+    }
+    public void DeactivateJoystick()
+    {
+        Joystick.SetActive(false);
     }
 }

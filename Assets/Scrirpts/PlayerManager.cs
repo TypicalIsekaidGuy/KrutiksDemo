@@ -1,22 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    // Я добавли заголовки, которые будут оторажаться в инспекторе чисто для удобвства
+    [Header("MainObjects")]
     [SerializeField] private Animator animator; 
     [SerializeField] private GameObject[] heroes; 
     [SerializeField] private Transform mainCamera; 
+    [SerializeField] private UIManager uimanager; 
+    [SerializeField] private GameManager gameManager; 
     private PlayerMove playerInput;
     private CharacterController controller;
+
+    [Header("Movement")]
+    private bool isClimbing;
+    private bool isPushingRock;
+    [Header("Walking")]
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private float playerSpeed = 3.0f;
-    private float climbingSpeed = 1.0f;
     private float gravityValue = -9.81f;
-    private bool isClimbing;
-    private bool isPushingRock;
-    // Start is called before the first frame update
+    [Header("Climbing")]
+    private float climbingSpeed = 5.0f;
+    private Vector3 climbingVector;
+    [Header("Pushing rock")]
+    private float pushingRockSpeed = 1.0f;
+    [Header("Break rock")]
+    private Wall wall;
+    private Vector3 lookToWall;
     private void Awake()
     {
         playerInput = new PlayerMove();
@@ -31,21 +45,18 @@ public class PlayerManager : MonoBehaviour
         playerInput.Disable();
     }
 
-    private void Start()
-    {}
-
-    void Update()
+    void Update()// здесь просто прописана логика для передвижения и камера
     {
         if (!isClimbing && !isPushingRock)
             Walking();
         else if (isClimbing)
             Climbing();
-        else PushingRock();
-            
+        else  PushingRock();
 
+        Debug.Log(playerVelocity);
         mainCamera.position = new Vector3(transform.position.x,4,transform.position.z-4);
     }
-    private void Walking()
+    private void Walking()//передвижение при помощи получения контроля от джойстика
     {
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
@@ -70,55 +81,32 @@ public class PlayerManager : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
-    private void Climbing()
+    private void Climbing()//передвижение при помощи простого назначения playerVelocity, который потом просто передвигает персонажа через Move
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
+        if (!animator.GetBool("isClimbing"))
         {
-            playerVelocity.y = 0f;
+            animator.SetBool("isClimbing", true);
+            playerVelocity = climbingVector;
+            playerVelocity.y = climbingSpeed;
         }
-
-        Vector2 movementInput = playerInput.Player.Move.ReadValue<Vector2>();
-        Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
-        controller.Move(move * Time.deltaTime * playerSpeed);
-
-        if (move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-            animator.SetBool("isWalking", true);
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
-        }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
+        transform.forward = climbingVector;
         controller.Move(playerVelocity * Time.deltaTime);
     }
-    private void PushingRock()
+/*    private void WallCheck()//Возможно добавлю этот метод, чтобы персонаж мог взбираться на стену только лишь тогда, когда она перед его лицом
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-        }
+        wallFront = Physics.SphereCast(transform.position, sphereCastRadius, orientation.forward, out frontWallHit, detectionLength, whatIsWall);
+        wallLookAngle = Vector3.Angle(orientation.forward, -frontWallHit.normal);
 
-        Vector2 movementInput = playerInput.Player.Move.ReadValue<Vector2>();
-        Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        bool newWall = frontWallHit.transform != lastWall || Mathf.Abs(Vector3.Angle(lastWallNormal, frontWallHit.normal)) > minWallNormalAngleChange;
 
-        if (move != Vector3.zero)
+        if ((wallFront && newWall) || pm.grounded)
         {
-            gameObject.transform.forward = move;
-            animator.SetBool("isWalking", true);
+            climbTimer = maxClimbTime;
+            climbJumpsLeft = climbJumps;
         }
-        else
-        {
-            animator.SetBool("isWalking", false);
-        }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+    }*/
+    private void PushingRock()//пока что под вопросом эта механика, но я ее оставил пока что
+    {
     }
     public void ChangeRig()
     {
@@ -128,7 +116,7 @@ public class PlayerManager : MonoBehaviour
         }
 
     }
-    public void ChangeCharacter(int i)
+    public void ChangeCharacter(int i)//смена персонажей реализована через просто включение и выключение чайлд объектов от player
     {
         foreach (var hero in heroes) 
             hero.SetActive(false);
@@ -147,38 +135,90 @@ public class PlayerManager : MonoBehaviour
         }
         return false;
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other)//обработка всех препятствий, которые может обойти игрок
     {
-        switch (other.gameObject.tag)//обработка всех препятствий, которые может обойти игрок через тег тригера
+        switch (other.gameObject.tag)
         {
             case "Ladder":
                 if (CheckHero(1))
                 {
-                    animator.SetBool("isClimbing",true);
+                    climbingVector = other.gameObject.transform.forward;
+                    isPushingRock = false;
+                    isClimbing = true;
                 }
-                else { Debug.Log("ss"); break; }
+                else { break; }
                 break;
             case "Creepers":
                 if (CheckHero(1))
                 {
-                    Debug.Log("sadasdsad");
+
                 }
-                else { Debug.Log("ss"); break; }
+                else {break; }
                 break;
             case "Rock":
                 if (CheckHero(0))
                 {
-                    Debug.Log("sadasdsad");
+                    isPushingRock = true;
+                    isClimbing = false;
                 }
-                else { Debug.Log("ss"); break; }
+                else {  break; }
                 break;
+        }
+    }
+    private void OnTriggerEnter(Collider other)//Обработка для препятствий, которые для оптимизации можно проверить 1 раз при входе в тригер
+    {
+        switch (other.gameObject.tag)
+        {
             case "Wall":
-                if (CheckHero(0))
-                {
-                    Debug.Log("sadasdsad");
-                }
-                else { Debug.Log("ss"); break; }
+                uimanager.DeactivateJoystick();
+                wall = other.gameObject.GetComponent<Wall>();
+                uimanager.ActivateButton(uimanager.royPunch);
+                lookToWall = other.gameObject.transform.position;
                 break;
+            case "Food":
+                gameManager.ChangeEnergy();
+                gameManager.SaveData();
+                Destroy(other.gameObject);
+                break;
+        }
+    }
+    private void OnTriggerExit(Collider other)//Обработка для препятствий, которые для оптимизации можно проверить 1 раз при выходе из тригер
+    {
+
+        switch (other.gameObject.tag)
+        {
+            case "Wall":
+                uimanager.ActivateJoystick();
+                uimanager.DeactivateButton(uimanager.royPunch);
+                wall.TurnOffColliders();
+                break;
+            case "Ladder":
+                isClimbing = false;
+                animator.SetBool("isClimbing", false);
+                playerVelocity.y = 0f;
+                playerVelocity.z = 0f;
+                playerVelocity.x = 0f;
+                break;
+        }
+    }
+    public void Explode()//Метод для уничтожения стены
+    {
+        float z = transform.rotation.z;
+        transform.LookAt(lookToWall);
+        transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, z));
+        animator.SetBool("IsPunching", true);
+        StartCoroutine(PlayAnimation());
+    }
+    //Я пока не знаю как полуяше реализовать разбивание стены, поэтому сделал через карутину
+    private IEnumerator PlayAnimation()//Карутина для уничтожения стены, которая примерно секунду проверяет прошла ли половина анимации и если да, то вызывается метод, ломающий стену
+    {
+        for (int i=0; i < 11; i++)
+        {
+            if(animator.GetBool("IsPunching")&& animator.GetCurrentAnimatorStateInfo(0).normalizedTime>0.5f)//сама проверка
+                wall.Explode();
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)//проверка на конец анимации и если да, то поменять переменную для анимации
+                animator.SetBool("IsPunching",false);
+            yield return new WaitForSeconds(0.2f);//возврат для карутины: он создают паузу (не 0,2 секунды, мне кажется на деле меньше), которая приостанавливает цикл (без цикла вроде оно не работает)
         }
     }
 }
