@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour
     private float playerSpeed = 3.0f;
     private float gravityValue = -9.81f;
     [Header("Climbing")]
-    private float climbingSpeed = 5.0f;
+    public float climbingSpeed = 2.0f;
     private Vector3 climbingVector;
     [Header("Pushing rock")]
     private float pushingRockSpeed = 1.0f;
@@ -53,7 +53,7 @@ public class PlayerManager : MonoBehaviour
             Climbing();
         else  PushingRock();
 
-        Debug.Log(playerVelocity);
+        //Debug.Log(playerVelocity);
         mainCamera.position = new Vector3(transform.position.x,4,transform.position.z-4);
     }
     private void Walking()//передвижение при помощи получения контроля от джойстика
@@ -86,6 +86,7 @@ public class PlayerManager : MonoBehaviour
         if (!animator.GetBool("isClimbing"))
         {
             animator.SetBool("isClimbing", true);
+            Debug.Log("Climb");
             playerVelocity = climbingVector;
             playerVelocity.y = climbingSpeed;
         }
