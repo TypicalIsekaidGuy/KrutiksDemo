@@ -2633,7 +2633,7 @@ MonoBehaviour:
   mainCamera: {fileID: 963194228}
   uimanager: {fileID: 1042258987}
   gameManager: {fileID: 71341935}
-  climbingSpeed: 5
+  climbingSpeed: 2
 --- !u!1001 &1737704175
 PrefabInstance:
   m_ObjectHideFlags: 0
