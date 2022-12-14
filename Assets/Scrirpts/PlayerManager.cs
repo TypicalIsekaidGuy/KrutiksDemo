@@ -27,7 +27,7 @@ public class PlayerManager : MonoBehaviour
     public float climbingSpeed = 2.0f;
     private Vector3 climbingVector;
     [Header("Pushing rock")]
-    private float pushingRockSpeed = 1.0f;
+    //private float pushingRockSpeed = 1.0f;
     [Header("Break rock")]
     private Wall wall;
     private Vector3 lookToWall;
@@ -171,7 +171,7 @@ public class PlayerManager : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Wall":
-                uimanager.DeactivateJoystick();
+                //uimanager.DeactivateJoystick();
                 wall = other.gameObject.GetComponent<Wall>();
                 uimanager.ActivateButton(uimanager.royPunch);
                 lookToWall = other.gameObject.transform.position;
@@ -189,7 +189,7 @@ public class PlayerManager : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Wall":
-                uimanager.ActivateJoystick();
+                //uimanager.ActivateJoystick();
                 uimanager.DeactivateButton(uimanager.royPunch);
                 wall.TurnOffColliders();
                 break;
