@@ -21,12 +21,16 @@ public class Wall : MonoBehaviour
         {
             rb.isKinematic = false;
         }
-    }
-    public void TurnOffColliders()
-    {
         foreach (var col in GetComponents<Collider>())
         {
             col.enabled = false;
         }
     }
+    //public void TurnOffColliders() // ”беру пока что отдельный метод, переместив экземпл€р этого метода в метод Explode
+    //{
+    //    foreach (var col in GetComponents<Collider>())
+    //    {
+    //        col.enabled = false;
+    //    }
+    //}
 }

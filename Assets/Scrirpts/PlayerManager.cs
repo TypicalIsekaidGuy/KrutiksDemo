@@ -45,13 +45,20 @@ public class PlayerManager : MonoBehaviour
         playerInput.Disable();
     }
 
-    void Update()// здесь просто прописана логика для передвижения и камера
+    void FixedUpdate()// здесь просто прописана логика для передвижения и камера
     {
         if (!isClimbing && !isPushingRock)
-            Walking();
+        { Walking(); }
         else if (isClimbing)
-            Climbing();
-        else  PushingRock();
+        { Climbing(); }
+        else
+        { PushingRock(); }
+
+        if (animator.GetBool("IsPunching") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > .6f)
+        {
+            animator.SetBool("IsPunching", false);
+            wall.Explode();
+        }
 
         //Debug.Log(playerVelocity);
         mainCamera.position = new Vector3(transform.position.x,4,transform.position.z-4);
@@ -191,7 +198,6 @@ public class PlayerManager : MonoBehaviour
             case "Wall":
                 //uimanager.ActivateJoystick();
                 uimanager.DeactivateButton(uimanager.royPunch);
-                wall.TurnOffColliders();
                 break;
             case "Ladder":
                 isClimbing = false;
@@ -208,18 +214,22 @@ public class PlayerManager : MonoBehaviour
         transform.LookAt(lookToWall);
         transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, z));
         animator.SetBool("IsPunching", true);
-        StartCoroutine(PlayAnimation());
+        //StartCoroutine(PlayAnimation());
     }
     //Я пока не знаю как полуяше реализовать разбивание стены, поэтому сделал через карутину
-    private IEnumerator PlayAnimation()//Карутина для уничтожения стены, которая примерно секунду проверяет прошла ли половина анимации и если да, то вызывается метод, ломающий стену
+    /*private IEnumerator PlayAnimation()//Карутина для уничтожения стены, которая примерно секунду проверяет прошла ли половина анимации и если да, то вызывается метод, ломающий стену
     {
-        for (int i=0; i < 11; i++)
+        for (int i=0; i < 10; i++)
         {
-            if(animator.GetBool("IsPunching")&& animator.GetCurrentAnimatorStateInfo(0).normalizedTime>0.5f)//сама проверка
+            if (animator.GetBool("IsPunching") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.5f)//сама проверка
+            {
                 wall.Explode();
+                wall.TurnOffColliders();
+                uimanager.DeactivateButton(uimanager.royPunch);
+            }
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)//проверка на конец анимации и если да, то поменять переменную для анимации
                 animator.SetBool("IsPunching",false);
             yield return new WaitForSeconds(0.2f);//возврат для карутины: он создают паузу (не 0,2 секунды, мне кажется на деле меньше), которая приостанавливает цикл (без цикла вроде оно не работает)
         }
-    }
+    }*/
 }
