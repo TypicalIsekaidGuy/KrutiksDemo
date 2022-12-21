@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]private Sprite[] activeButtons;
 
     public Button royPunch;
+    public Button solCut;
     public GameObject Joystick;
     void Start()
     {

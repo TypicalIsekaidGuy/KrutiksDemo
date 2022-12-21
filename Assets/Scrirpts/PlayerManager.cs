@@ -31,6 +31,8 @@ public class PlayerManager : MonoBehaviour
     [Header("Break rock")]
     private Wall wall;
     private Vector3 lookToWall;
+    [Header("Cutting creepers")]
+    private Creeper creep;
     private void Awake()
     {
         playerInput = new PlayerMove();
@@ -54,7 +56,7 @@ public class PlayerManager : MonoBehaviour
         else
         { PushingRock(); }
 
-        if (animator.GetBool("IsPunching") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > .6f)
+        if (CheckHero(0) && animator.GetBool("IsPunching") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > .6f)
         {
             animator.SetBool("IsPunching", false);
             wall.Explode();
@@ -159,7 +161,7 @@ public class PlayerManager : MonoBehaviour
             case "Creepers":
                 if (CheckHero(1))
                 {
-
+                    
                 }
                 else {break; }
                 break;
@@ -178,15 +180,26 @@ public class PlayerManager : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Wall":
-                //uimanager.DeactivateJoystick();
-                wall = other.gameObject.GetComponent<Wall>();
-                uimanager.ActivateButton(uimanager.royPunch);
-                lookToWall = other.gameObject.transform.position;
+                if (CheckHero(0))
+                {
+                    //uimanager.DeactivateJoystick();
+                    wall = other.gameObject.GetComponent<Wall>();
+                    uimanager.ActivateButton(uimanager.royPunch);
+                    lookToWall = other.gameObject.transform.position;
+                }
                 break;
             case "Food":
                 gameManager.ChangeEnergy();
                 gameManager.SaveData();
                 Destroy(other.gameObject);
+                break;
+            case "Creepers":
+                if (CheckHero(1))
+                {
+                    creep = other.gameObject.GetComponent<Creeper>();
+                    uimanager.ActivateButton(uimanager.solCut);
+                    lookToWall = other.gameObject.transform.position;
+                }
                 break;
         }
     }
@@ -197,14 +210,23 @@ public class PlayerManager : MonoBehaviour
         {
             case "Wall":
                 //uimanager.ActivateJoystick();
-                uimanager.DeactivateButton(uimanager.royPunch);
-                break;
+                if (CheckHero(0))
+                {
+                    uimanager.DeactivateButton(uimanager.royPunch);
+                }
+                    break;
             case "Ladder":
                 isClimbing = false;
                 animator.SetBool("isClimbing", false);
                 playerVelocity.y = 0f;
                 playerVelocity.z = 0f;
                 playerVelocity.x = 0f;
+                break;
+            case "Creepers":
+                if (CheckHero(1))
+                {
+                    uimanager.DeactivateButton(uimanager.solCut);
+                }
                 break;
         }
     }
@@ -214,7 +236,17 @@ public class PlayerManager : MonoBehaviour
         transform.LookAt(lookToWall);
         transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, z));
         animator.SetBool("IsPunching", true);
+        uimanager.DeactivateButton(uimanager.royPunch);
+        Debug.Log("Ex");
         //StartCoroutine(PlayAnimation());
+    }
+    public void Cut()//Метод для уничтожения лианы
+    {
+        float z = transform.rotation.z;
+        transform.LookAt(lookToWall);
+        transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, z));
+        creep.Cut();
+        Debug.Log("Cut");
     }
     //Я пока не знаю как полуяше реализовать разбивание стены, поэтому сделал через карутину
     /*private IEnumerator PlayAnimation()//Карутина для уничтожения стены, которая примерно секунду проверяет прошла ли половина анимации и если да, то вызывается метод, ломающий стену
