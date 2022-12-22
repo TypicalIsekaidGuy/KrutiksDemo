@@ -61,6 +61,11 @@ public class PlayerManager : MonoBehaviour
             animator.SetBool("IsPunching", false);
             wall.Explode();
         }
+        if (CheckHero(1) && animator.GetBool("isCutting") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > .4f)
+        {
+            animator.SetBool("isCutting", false);
+            creep.Cut();
+        }
 
         //Debug.Log(playerVelocity);
         mainCamera.position = new Vector3(transform.position.x,4,transform.position.z-4);
@@ -245,7 +250,8 @@ public class PlayerManager : MonoBehaviour
         float z = transform.rotation.z;
         transform.LookAt(lookToWall);
         transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, z));
-        creep.Cut();
+        animator.SetBool("isCutting", true);
+        uimanager.DeactivateButton(uimanager.solCut);
         Debug.Log("Cut");
     }
     //я пока не знаю как полу€ше реализовать разбивание стены, поэтому сделал через карутину
