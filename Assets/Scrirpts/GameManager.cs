@@ -9,11 +9,16 @@ public class GameManager : MonoBehaviour
     public float energy;
     public int food;
     public int achivements;
+    public bool isGetKeyB = false;
 
     public void ChangeEnergy()
     {
-        energy++;
-    } 
+       energy++;
+    }
+    public void GetKey()
+    {
+        isGetKeyB= true;
+    }
     #region Serialization
     /*регион дл€ сохранений*/
     public void SaveData() //метод, который реализует класс, в котором записываютс€ все переменные в этом скрипте, сохран€ютс€ в json и записываютс€ в файл

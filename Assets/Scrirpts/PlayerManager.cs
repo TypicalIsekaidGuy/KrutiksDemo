@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject[] heroes; 
     [SerializeField] private Transform mainCamera; 
     [SerializeField] private UIManager uimanager; 
-    [SerializeField] private GameManager gameManager; 
+    [SerializeField] private GameManager gameManager;
     private PlayerMove playerInput;
     private CharacterController controller;
 
@@ -67,8 +67,8 @@ public class PlayerManager : MonoBehaviour
             creep.Cut();
         }
 
-        //Debug.Log(playerVelocity);
-        mainCamera.position = new Vector3(transform.position.x,4,transform.position.z-4);
+        mainCamera.position = new Vector3(transform.position.x+2, transform.position.y+5, transform.position.z-7);
+        mainCamera.rotation = Quaternion.Euler(25,-15,0);
     }
     private void Walking()//передвижение при помощи получени€ контрол€ от джойстика
     {
@@ -198,6 +198,12 @@ public class PlayerManager : MonoBehaviour
                 gameManager.SaveData();
                 Destroy(other.gameObject);
                 break;
+            case "Key":
+                gameManager.GetKey();
+                Debug.Log("Key is picked up");
+                gameManager.SaveData();
+                Destroy(other.gameObject);
+                break;
             case "Creepers":
                 if (CheckHero(1))
                 {
@@ -253,6 +259,10 @@ public class PlayerManager : MonoBehaviour
         animator.SetBool("isCutting", true);
         uimanager.DeactivateButton(uimanager.solCut);
         Debug.Log("Cut");
+    }
+    public void CutRope()
+    {
+        animator.Play("Cut");
     }
     //я пока не знаю как полу€ше реализовать разбивание стены, поэтому сделал через карутину
     /*private IEnumerator PlayAnimation()// арутина дл€ уничтожени€ стены, котора€ примерно секунду провер€ет прошла ли половина анимации и если да, то вызываетс€ метод, ломающий стену

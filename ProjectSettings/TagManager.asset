@@ -9,6 +9,8 @@ TagManager:
   - Rock
   - Wall
   - Food
+  - Rope
+  - Key
   layers:
   - Default
   - TransparentFX
