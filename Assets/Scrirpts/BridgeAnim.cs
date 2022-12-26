@@ -9,6 +9,7 @@ public class BridgeAnim : MonoBehaviour
     Animation anim;
     BoxCollider triggerCol;
     public GameObject rope;
+    public bool isCut = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +23,13 @@ public class BridgeAnim : MonoBehaviour
         {
                 anim.Play("Bridge Anim");
                 triggerCol.enabled = false;
+            isCut = true;
             pl.CutRope();
             Destroy(rope);
         }
+    }
+    public void SecondAnim()
+    {
+        anim.Play("SecondAminBridge");
     }
 }

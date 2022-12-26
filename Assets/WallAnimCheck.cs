@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class WallAnimCheck : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool isAnimCheck = false;
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if(other.gameObject.tag == "Player")
+        {
+            isAnimCheck = true;
+        }
     }
 }

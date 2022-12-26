@@ -14,6 +14,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     private PlayerMove playerInput;
     private CharacterController controller;
+    WallAnimCheck wac;
+    BridgeAnim Ba;
 
     [Header("Movement")]
     private bool isClimbing;
@@ -37,6 +39,8 @@ public class PlayerManager : MonoBehaviour
     {
         playerInput = new PlayerMove();
         controller = GetComponent<CharacterController>();
+        wac = FindObjectOfType<WallAnimCheck>();
+        Ba = FindObjectOfType<BridgeAnim>();
     }
     private void OnEnable()
     {
@@ -249,6 +253,10 @@ public class PlayerManager : MonoBehaviour
         animator.SetBool("IsPunching", true);
         uimanager.DeactivateButton(uimanager.royPunch);
         Debug.Log("Ex");
+        if (wac.isAnimCheck == true && Ba.isCut == true)
+        {
+            Ba.SecondAnim();
+        }
         //StartCoroutine(PlayAnimation());
     }
     public void Cut()//Метод для уничтожения лианы
@@ -263,6 +271,10 @@ public class PlayerManager : MonoBehaviour
     public void CutRope()
     {
         animator.Play("Cut");
+        if (wac.isAnimCheck == true && Ba.isCut == true)
+        {
+            Ba.SecondAnim();
+        }
     }
     //Я пока не знаю как полуяше реализовать разбивание стены, поэтому сделал через карутину
     /*private IEnumerator PlayAnimation()//Карутина для уничтожения стены, которая примерно секунду проверяет прошла ли половина анимации и если да, то вызывается метод, ломающий стену
