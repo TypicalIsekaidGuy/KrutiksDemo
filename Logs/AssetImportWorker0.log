@@ -15,7 +15,7 @@ C:/Unver/GameGit/KrutiksDemo
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-59419
+53501
 Successfully changed project path to: C:/Unver/GameGit/KrutiksDemo
 C:/Unver/GameGit/KrutiksDemo
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,7 +47,7 @@ C:/Unver/GameGit/KrutiksDemo
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Refreshing native plugins compatible for Editor in 74.08 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 79.75 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.11f1 (0a5ca18544bf)
 [Subsystems] Discovering subsystems at path C:/Programs/Unity1/2021.3.11f1/Editor/Data/Resources/UnitySubsystems
@@ -63,92 +63,92 @@ Initialize mono
 Mono path[0] = 'C:/Programs/Unity1/2021.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Programs/Unity1/2021.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Programs/Unity1/2021.3.11f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56052
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56208
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Programs/Unity1/2021.3.11f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Programs/Unity1/2021.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.003638 seconds.
+Registered in 0.003881 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 82.36 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 76.22 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.564 seconds
+- Completed reload, in  0.588 seconds
 Domain Reload Profiling:
-	ReloadAssembly (564ms)
-		BeginReloadAssembly (58ms)
+	ReloadAssembly (589ms)
+		BeginReloadAssembly (64ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (417ms)
-			LoadAssemblies (57ms)
+		EndReloadAssembly (426ms)
+			LoadAssemblies (62ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
 			SetupTypeCache (98ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (23ms)
-			SetupLoadedEditorAssemblies (253ms)
+			RebuildScriptCaches (27ms)
+			SetupLoadedEditorAssemblies (252ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (37ms)
+				InitializePlatformSupportModulesInManaged (41ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (82ms)
+				RefreshPlugins (76ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (94ms)
-				ProcessInitializeOnLoadMethodAttributes (38ms)
+				ProcessInitializeOnLoadAttributes (93ms)
+				ProcessInitializeOnLoadMethodAttributes (40ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.005137 seconds.
+Registered in 0.004839 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Unver\GameGit\KrutiksDemo\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
 Symbol file LoadedFromMemory doesn't match image C:\Unver\GameGit\KrutiksDemo\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 76.69 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 73.43 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.038 seconds
+- Completed reload, in  1.111 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1038ms)
-		BeginReloadAssembly (128ms)
+	ReloadAssembly (1111ms)
+		BeginReloadAssembly (101ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (38ms)
+			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (20ms)
-		EndReloadAssembly (816ms)
-			LoadAssemblies (64ms)
+			CreateAndSetChildDomain (21ms)
+		EndReloadAssembly (908ms)
+			LoadAssemblies (69ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (223ms)
+			SetupTypeCache (263ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (43ms)
-			SetupLoadedEditorAssemblies (438ms)
+			RebuildScriptCaches (47ms)
+			SetupLoadedEditorAssemblies (479ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (13ms)
+				InitializePlatformSupportModulesInManaged (12ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (77ms)
-				BeforeProcessingInitializeOnLoad (72ms)
-				ProcessInitializeOnLoadAttributes (248ms)
-				ProcessInitializeOnLoadMethodAttributes (25ms)
-				AfterProcessingInitializeOnLoad (4ms)
+				RefreshPlugins (74ms)
+				BeforeProcessingInitializeOnLoad (76ms)
+				ProcessInitializeOnLoadAttributes (281ms)
+				ProcessInitializeOnLoadMethodAttributes (30ms)
+				AfterProcessingInitializeOnLoad (6ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (5ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 0.64 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 0.70 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3780 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 28 unused Assets / (56.7 KB). Loaded Objects now: 4243.
 Memory consumption went from 135.1 MB to 135.1 MB.
-Total: 3.141000 ms (FindLiveObjects: 0.262600 ms CreateObjectMapping: 0.305400 ms MarkObjects: 2.505300 ms  DeleteObjects: 0.066900 ms)
+Total: 3.779300 ms (FindLiveObjects: 0.286300 ms CreateObjectMapping: 0.120100 ms MarkObjects: 3.263300 ms  DeleteObjects: 0.108200 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -162,7 +162,17 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 668035.520515 seconds.
-  path: Assets/Models/Materials/Cake.mat
-  artifactKey: Guid(489bfc164ad142b4d9866ad9599f8903) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Materials/Cake.mat using Guid(489bfc164ad142b4d9866ad9599f8903) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '19a326090ec755547ae52d40184c5aa2') in 0.116903 seconds 
+  Time since last request: 672080.711960 seconds.
+  path: Assets/Models/Textures/Найди ключ.png
+  artifactKey: Guid(ed5440ae0eee7a34eb9b138f50b0d15b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/Textures/Найди ключ.png using Guid(ed5440ae0eee7a34eb9b138f50b0d15b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7b23956c66cce9d537e7a68fc29d726') in 0.152669 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Models/Textures/запас еды.png
+  artifactKey: Guid(7c7b2fd9868ca7845b9052e2fe378ee1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/Textures/запас еды.png using Guid(7c7b2fd9868ca7845b9052e2fe378ee1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a4ac1a33f29a10dbdcde86f217ed00f') in 0.025669 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
